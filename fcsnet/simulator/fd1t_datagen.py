@@ -3,7 +3,6 @@ import time
 import gc  # garbage collection
 from Utilities.common_packages import np
 from Configurations import config as cfg
-# from Configurations.fd1t_cfg import sim
 from Configurations import CNN
 
 from tensorflow.keras.utils import Sequence
@@ -50,8 +49,8 @@ class DataGeneratorFD1T(Sequence):
 
             # load data once at the start
             if self.epochs == 1:
-                start_digit = 1
-                fns = [str(start_digit + i).zfill(4) for i in range(13)]
+                start_digit = CNN.DATA_FN_START_INDEX
+                fns = [str(start_digit + i).zfill(4) for i in range(CNN.DATA_FN_COUNT)]
                 all_data_x = []
                 all_data_y = []                
                 for fn in fns:
@@ -106,7 +105,6 @@ class DataGeneratorFD1T(Sequence):
         outputs = self.y[seqFrom:seqTo, 0]
 
         if self.verbose and idx == 0:
-            print("\n\n\nIn getitem. Some random model parameters at epoch", self.epochs)
             print("\nSome x data:")
             print(self.x[0:5, 0:5])
             print("\nSome y data:")

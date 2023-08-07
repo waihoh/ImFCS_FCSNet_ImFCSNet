@@ -5,6 +5,8 @@ from Configurations import config as cfg
 EMCCD_FOLDER = "./training_data/data_EMCCD"
 Gaussian_FOLDER = "./training_data/data_Gaussian"
 PIXELS = 3  # simulated data are from ROI of 3X3 per image stack, i.e. 9 ACF curves per image stack
+DATA_FN_START_INDEX = 1  # iterate through the data files. The file name format, e.g., 0001_x.npz, 0001_y.npz, ... 0013_x.npz, 0013_y.npz.
+DATA_FN_COUNT = 13  # iterate through the data files, e.g., 0001_x.npz, 0001_y.npz, ... 0013_x.npz, 0013_y.npz, for each noise type.
 
 # ---------------------------------------------------------------
 # CONFIGURATIONS
@@ -15,7 +17,7 @@ TFEPOCHS = 3000
 # in the data generation process, there are 16 x 128, image stacks of size 3 x 3
 # we shuffle and use a subset, i.e. 11, of the data: 1) to exclude a few ACFs where the 1st value is negative, and 2) to introduce some variation of data in each batch
 BATCHES_PER_EPOCH = 16 * 11 * 2  # 2 for the two data folders 
-BATCH_SIZE = 128 * PIXELS * PIXELS
+BATCH_SIZE = 128 * PIXELS * PIXELS  # i.e. batch size of 1152
 
 SAVE_ONLY_LAST_MODEL = True  # Intermediate models are deleted.
 REACH_FULL_RANGE = 1
